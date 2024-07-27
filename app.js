@@ -41,7 +41,7 @@ function from the imported functions at the top of the `app.js` to get your data
 
 app.get('/astronauts', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
   try {
-    const astronautss = await getAstronautById(); // getastronauts is called to fetch the data
+    const astronautss = await getAstronauts(); // getastronauts is called to fetch the data
     res.json({
       success: true, 
       payload: astronautss
@@ -148,5 +148,20 @@ app.delete('/astronauts/:id', async (req, res) => { // sets up the route handler
 
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
 listen to requests at the appropriate path. */
+app.patch('/astronauts/:id', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
+  try {
+    const updateAstronaut = await updateAstronautById(req.params.id, req.body); 
+    res.json({
+      success: true, 
+      payload: updateAstronaut
+    });
+  } catch (error) {
+    res.status(500).json({ // if an error occurs, a 500 status is returned with error message
+      success: false,
+      payload: "Cant get astronauts data"
+    });
+    
+  }
+});
 
 export default app;
