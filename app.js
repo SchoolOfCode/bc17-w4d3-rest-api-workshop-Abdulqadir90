@@ -105,6 +105,24 @@ app.get('/astronauts/:id', async (req, res) => { // sets up the route handler fo
 /* Write the request handler to perform the action and return the data from the function replaceAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.put('/astronauts/:id', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
+  try {
+    const replaceAstronaut = await replaceAstronautById(req.params.id, req.body); // req.params.id req.body expected to replace an astronaut's data based on the ID provided in the URL and the new data provided in the request body
+    res.json({
+      success: true, 
+      payload: replaceAstronaut
+    });
+  } catch (error) {
+    res.status(500).json({ // if an error occurs, a 500 status is returned with error message
+      success: false,
+      payload: "Cant get astronauts data"
+    });
+    
+  }
+});
+
+
+
 // Task 5
 
 /* Write the request handler to perform the action and return the data from the function deleteAstronautById. Have this handler 
