@@ -41,10 +41,10 @@ function from the imported functions at the top of the `app.js` to get your data
 
 app.get('/astronauts', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
   try {
-    const astronauts = await getAstronauts(); // getastronauts is called to fetch the data
+    const astronautss = await getAstronautById(); // getastronauts is called to fetch the data
     res.json({
       success: true, 
-      payload: astronauts
+      payload: astronautss
     });
   } catch (error) {
     res.status(500).json({ // if an error occurs, a 500 status is returned with error message
@@ -81,6 +81,24 @@ app.post('/astronauts', async (req, res) => { // sets up the route handler for G
 
 /* Write the request handler to return the data from the function getAstronautById. Have this handler listen to requests at the 
 appropriate path. */
+
+app.get('/astronauts/:id', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
+  try {
+    const astroId = await getAstronautById(req.params.id); // req.params.id contains the value of the id, when a request is made to URL, astronauts/999, express extracts 999 and assigns it to req.params.id = 999
+    res.json({
+      success: true, 
+      payload: astroId
+    });
+  } catch (error) {
+    res.status(500).json({ // if an error occurs, a 500 status is returned with error message
+      success: false,
+      payload: "Cant get astronauts data"
+    });
+    
+  }
+});
+
+
 
 // Task 4
 
