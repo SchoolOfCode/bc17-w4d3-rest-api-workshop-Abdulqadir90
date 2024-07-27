@@ -128,6 +128,22 @@ app.put('/astronauts/:id', async (req, res) => { // sets up the route handler fo
 /* Write the request handler to perform the action and return the data from the function deleteAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.delete('/astronauts/:id', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
+  try {
+    const deletedAstronaut = await deleteAstronautById(req.params.id); 
+    res.json({
+      success: true, 
+      payload: deletedAstronaut
+    });
+  } catch (error) {
+    res.status(500).json({ // if an error occurs, a 500 status is returned with error message
+      success: false,
+      payload: "Cant get astronauts data"
+    });
+    
+  }
+});
+
 // Task 6
 
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
