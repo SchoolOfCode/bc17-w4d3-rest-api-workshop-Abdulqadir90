@@ -10,9 +10,32 @@ import {
   getAstronautById,
 } from "./models/astronauts.js";
 
-const app = express();
+const app = express(); // used to set up the server
+app.use(express.json()); // enables JSON for incoming requests
+const PORT = 3000;
 
-app.use(express.json());
+
+  app.get('/astronauts', async (req, res) => { // sets up the route handler for GET requests with path of /astronauts
+    try {
+      const astronauts = await getAstronauts(); // getastronauts is called to fetch the data
+      res.json({
+        success: true, 
+        payload: astronauts
+      });
+    } catch (error) {
+      res.status(500).json({ // if an error occurs, a 500 status is returned with error message
+        success: false,
+        payload: "Cant get astronauts data"
+      });
+      
+    }
+  });
+
+
+app.listen(PORT, ()=> {
+console.log(`Servers started on port ${PORT}`)
+});
+
 
 /* 
 
